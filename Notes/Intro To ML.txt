@@ -186,5 +186,55 @@ Ex. (In-Class) Write a function with name/type max3 : int * int * int -> int
     -fun max3(3, 9, 6);
     val it = 9 : int 
 
-    fun max3 (a,b,c) = if <bool expression> then <expr1:T> else <expr2:T>
-                       if a>b and a>c then a else if b>a and b>c then b else c 
+    fun max3 (a,b,c) = 
+        if a>b then
+            if a>c then a else c
+        else
+            if b>c then b else c;
+
+In ML, global variables are frowned upon
+
+val y = 4;
+fun myfun a = y+a;
+val y = 20;
+myfun(3);
+returns 7 because my fun is binded to the first value 
+
+another way to construct a function is by declaring an anonymous functions/functions
+defined on the fly/functions without a name. the syntax is:
+
+    fn <parameter(s)> => expression;
+
+    val addfour = fn x => x+4;
+
+ex: write a function named apply that takes a function and value, then returns
+that input function applied to the value 
+
+fun apply (f, a) = f(a);
+returns: val apply = fn : ('a -> 'b) * a' -> b'
+
+ex: write a function called getFun that inputs an integer a and then returns the
+function f(x) = a*x; 
+
+fun getFun a = (fn x => a*x);
+returns: val getFun = fn : int -> int -> int
+                           input    output type
+                           type 
+
+ex. (in-class) write a function named past that inputs a string and then 
+concantenates "ed" on the end. for example, 
+    - past("suck");
+    val it = "sucked" : string
+
+fun past x = x ^ "ed";
+
+ex. (in-class) write a function named jeremy : char -> string -> string 
+that inputs a character c and then returns
+the string function f(w) = wc (concantenates the character to the end of the string)
+and test it. for example, 
+    - val myfun = jeremy(#"z");
+    val my fun = fn : string -> string
+    - myfun("lor");
+    val it = "lorz" : string
+
+fun jeremy c = fn s => s^(str c);
