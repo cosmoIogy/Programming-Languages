@@ -238,3 +238,86 @@ and test it. for example,
     val it = "lorz" : string
 
 fun jeremy c = fn s => s^(str c);
+
+Lecture 1-4: Recursion 
+
+Loops are frowned upon! Thats a procedural style, not functional! 
+
+Ex. Write our own length function named mylength. First, we do it badly:
+
+fun mylength L = if L=[] then 0 else 1+mylength(tl(L));
+
+NOTE: ''a means that you can only use equality types
+
+A better way to define functions on lists in ML is to use pattern matching:
+
+fun <identifier> <pattern1> = <exp1>
+    <identifier> <pattern2> = <exp2>
+    ..
+    <identifier> <pattern-n> = <expn>
+
+Allowed patterns are constants/literals or expressions with ::
+
+fun mylength2 [] = 0
+    | mylength2 (x::xs) = 1+mylength2(xs); 
+
+This wildcard symbol in ML is _. It is used in place of a variable when it is not needed. The 
+last example can be written more efficiently as:
+
+fun mylength3 [] = 0
+    | mylength3 (_::xs) = 1+mylength3(xs);
+
+New construct: case 
+Plays the role of "switch" from other language, but it is just another format to do
+pattern matching. The syntax is
+
+    case <expression> of <match> 
+
+Then <match> will have the form 
+
+    <patern1> => <exp1> | <pattern2> =>
+    <exp2> | ... | <pattern-n> => <expn>
+
+We can also write the last example as:
+
+fun mylength4 L = case L of [] => 0 | (x::xs) => 1+mylength4(xs); 
+
+Ex. write the factoiral function using recursion and pattern matching 
+
+fun steve 0 = 1
+    | steve n = n*steve(n-1);
+
+Ex. write a function named listsum that inputs a list of integers and returns their sum. for example:
+    - listsum [2,3,5,7];
+    val it = 17 : int 
+
+fun listsum [] = 0
+    | listsum (x::xs) = x+sum(xs); 
+
+Ex. Write a recursive function with pattern matching named pairlistsum that inputs an int * int list
+and returns the sum of all values. For example,
+    - pairlistsum [(2,3),(5,7)];
+        val it = 17 : int 
+
+fun pairlistsum [] = 0;
+    | pairlistsum ((x,y)::xs) = x+y+pairlistsum(xs);
+
+New Reserved Word: and 
+Allows you to do more than one decleration at the same time 
+
+Ex. Write mutually recursive functions with pattern matching named isOdd and isEven that inputs a 
+non-neg integer and returns the correct bool value. For example,
+    - isEven(4);
+    val it = true : bool
+    - isodd(4);
+    val it = false : bool 
+
+fun isEven 0 = true | isEven n = isOdd(n-1) and isOdd 0 = false | isOdd n = isEven(n-1);
+
+Ex. Write a recursive ML function with pattern matching named linSearch that inputs a 2-tuple:
+an int list and int. It will return the index position if the value is found. Assuming the indices
+start at 1. If the value is not found, it should return -1 but instead, we will return list size plus 1
+for now.
+
+fun linSearch ([],_) = 1
+    | linSearch (x::xs, n) = if x = n then 1 else 1+linSearch(xs,n);
