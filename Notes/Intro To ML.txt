@@ -321,3 +321,79 @@ for now.
 
 fun linSearch ([],_) = 1
     | linSearch (x::xs, n) = if x = n then 1 else 1+linSearch(xs,n);
+
+Recall that last example: 
+
+fun linSearch ([],_) = 1
+    | linSearch (x::xs, n) = if x = n then 1 else 1+linSearch(xs,n);
+
+To "save" information in a functional language, you can add an extra arguement in a function 
+to hold data until its needed
+
+ex. repeat the last example except it should return ~1 if the value is not found in the list. 
+(We're going to create a back-end function to handle the recursion and a front-end function 
+for the user to abstract what's happening under the hood)
+
+BACK-END
+fun helper ([],_,n) = ~n-1
+|   helper (y::ys, x, n) = if x=y then 1 else 1+helper(ys,x,n);
+
+FRONT END 
+fun linSearch2(L,x) = helper(L,x,length(L));
+
+New Syntax:
+    let <decleration> in <expression> end 
+This allows temperary declerations that can be used in <expression>. This syntax evaluates to <expression>.
+
+The following code does the same as the previous example, except the helper function is temporary
+and not accessible to the user 
+
+fun linSearch3(L, x) = 
+    let 
+        fun helper ([],_,n) = ~n-1
+        |   helper (y::ys, x, n) = if x=y then 1 
+        else 1+helper(ys,x,n);
+    in
+        helper2(L,x,length(L))
+    end;
+
+NEW RESERVED WORD: as 
+Allows us to use identifiers or parts of an identifier in expressions by doing additional bindings
+
+Ex. write a recursive function using pattern matching with name and type 
+    sortedMerge : int list * int list -> int list 
+which inputs two sorted lists and returns a single combined sorted list of integers
+For exmaple,
+    - sortedMerge([2,3,5,7],[1,2,9])
+    val it = [1,2,2,3,5,7,9] : int list 
+
+fun sortedMerge ([],B) = B
+|   sortedMerge (A,[]) = A
+|   sortedMerge (A as x::xs, B as y::ys) = if x<y then x::sortedMerge(xs,B) else y::sortedMerge(A,ys);
+
+MAP FUNCTION
+The syntax for the built=in map function is 
+    map <function> list 
+that will return the list after the function has been applied to each element 
+
+Ex. (in-class) use the map function to append the string "ed" at the end of every string on a list: 
+
+    - map <??> ["box", "fix", "lock"];
+    val it = ["boxed", "fixed", "locked"] : string list 
+
+    map (fn x => x^"ed") ["box", "fix", "lock"]; 
+
+REDUCE FUNCTIONS 
+The built-in reduce function in ML are named foldl and foldr. Their syntax is 
+<fold or foldr> <two-variable function> <initial value> <list> that takes the function and applies 
+it continuously to every element of the list starting with the initial value  
+
+fun myfun(cv,acc) = cv + acc;
+
+foldl myfun 0 [2,3,5,7];
+
+Ex. Use one of the reduce funtions to duplicate all elements in a list. For example, 
+    - <foldl or foldr> <f> <IV> [2,3,5,7];
+    val it = [2,2,3,3,5,5,7,7];
+
+    fun myfun2(cv,acc) = cv :: cv :: acc;
