@@ -397,3 +397,89 @@ Ex. Use one of the reduce funtions to duplicate all elements in a list. For exam
     val it = [2,2,3,3,5,5,7,7];
 
     fun myfun2(cv,acc) = cv :: cv :: acc;
+
+Lecture 1-5: Advanced Types 
+
+NEW TYPE: 'a option 
+This new type has "two" values 
+    NONE
+    SOME x
+where x is of type 'a
+
+The option type allows "null" or "invalid" values that can represent no answer, no response, 
+but can also maintain type consistency
+
+Ex. Write a recursive function using pattern matching with name and type: 
+    intopsum : int option list -> int 
+that inputs a list of int options are returns their sum of all integers while ignoring any instances 
+of NONE. For example 
+    - intospum [SOME 2, NONE, NONE, SOME 3, NONE];
+    val it = 5 : int
+
+fun intospum [] = 0
+|   intospum ((SOME x)::xs) = x+intopsum(xs)
+|   intopsum (NONE::xs) = intopsum(xs);
+
+Ex. Write a recursive function with pattern matching named countNones that inputs a list of options 
+and returns the number of occurrences of NONE. For example, 
+    - countNones [SOME 2, NONE, NONE, SOME 3, NONE];
+    val it = 3 : int 
+
+    fun countNones [] = 0
+    |   countNones (NONE::xs) = 1+countNones xs
+    |   countNones (SOME _::xs) = countNones xs; 
+
+
+Ex. Write a recursive function with pattern matching named strip that inputs a list of options and 
+removes all SOMEs and NONEs. For example, 
+    - strip [SOME 2, NONE, NONE, SOME 3, NONE];
+    val it = [2,3] : int list 
+    - strip [NONE, SOME "a"];
+    val it = ["a"] : string list 
+
+
+Ex. (in-class) Write a recursive function with pattern matching named stropconcat that inputs a list 
+of string options and returns the concatenation of all strings while ignoring any instances of NONE.
+For example,
+    -stropconcat [NONE, NONE, SOME "abc", NONE, SOME "de"];
+    val it = 'abcde" : string 
+
+    fun stropconcat [] = ""
+    |   stropconcat (NONE::xs) = stropconcat(xs)
+    |   stronconcat ((SOME x)::xs) = x^strconcat(xs);
+
+CUSTOM TYPES 
+The syntax to create a custom data type is 
+    datatype <typename> = <val1> | <val2> | ...
+where each value can be a literal or a constructor of the form 
+    <constructor name> of <type> 
+
+    datatype color = blue | red | yellow;
+
+Recall from java, create a new class for linked list nodes 
+
+public class Node() {
+    private int data;
+    private Node next;
+}
+
+In ML, we shall create our own linked list type to create nodes! 
+
+datatype linkedList = empty | node of int * linkedList;
+
+node (3, node(5,empty)); <- a linked list with 3 pointing to 5
+
+Now lets code those Java methods for linked lists!
+Ex. write a recursive function with pattern matching with name and type
+    isEmpty : linkedList -> bool 
+that returns true if and only if it receives an empty linked list 
+
+fun isEmpty empty = true
+|   isEmpty (node(_)) = false; 
+
+Ex. (in-class) write a recursive function with pattern matching with name and type 
+        getSize : linkedList -> int
+    that returns the number of nodes
+
+fun getSize empty = 0
+|   getSize node(_,y) = 1+getSize(y);
