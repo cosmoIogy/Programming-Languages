@@ -1,4 +1,10 @@
-val y = 4;
-fun myfun a = y+a;
-val y = 20;
-myfun(3);
+print("Hello world");
+
+fun pchar c = print(str(c)^"\n");
+pchar(#"D");
+
+fun pbools [] = () 
+|   pbools (x::xs) = (
+    print(bool.toString(x)^"\n");
+    pbools(xs)
+);

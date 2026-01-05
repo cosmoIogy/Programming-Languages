@@ -508,4 +508,73 @@ There is a built in function to write strings to the terminal
 
 print("Hello world");
 
+Ex. Write an ML function with name and type 
+    pchar : char -> unit 
+that inputs a character, prints the character to the terminal, and returns unit 
 
+fun pchar c = print(str(c)^"\n");
+pchar(#"D");
+
+STRUCTURES 
+A structure is a built-in "library" that contains predefined functions and values that you can 
+import into the ML environment. For example, two structures are 
+    Int 
+    Bool
+As a subexample, both these stuctures contained the function toString 
+
+Int.toString;
+Bool.toString;
+Int.toString(77);
+
+The reserved word to load ALL of a structures contents into the ML environment is open:
+    open <structure name>
+
+open Int;
+
+You can have a series of expressions seperated by semicolons. If you do, ML will evaluate to the last
+expression 
+
+3; "56"; true;
+
+Ex. Write a recursive Ml function using pattern matching that inputs a list of bools, prints them 
+to the terminal, and returns unit. For example:
+    - pbools [true,false,false];
+    true
+    false
+    false
+    val it = () : unit 
+
+fun pbools [] = () 
+|   pbools (x::xs) = (
+    print(Bool.toString(x)^"\n");
+    pbools(xs)
+);
+
+NOTE: You can now use this technique for debugging. You can add extra print statements as needed inside code,
+just remember that the last expression must return the correct type.
+
+FILE READING
+
+NEW STRUCTURE : TextIO
+    Library contains functions for reading from files 
+
+NEW TYPE: instream
+    Represented by a token we cant see, which is used for accessing files to read 
+
+NEW FUNCTIONS in TextIO 
+
+    TextIO.openIn : string -> instream
+        Takes a filename as a string and returns a reference to a file for reading 
+
+    TextIO.closeIN : instream -> unit 
+        Closes a file (deallocate) that was used for reading and returns unit 
+
+    TextIO.endOfStream : instream -> bool 
+        Checks whether we are at the end of the files and returns true or false 
+
+    TextIO.inputN : instream * int -> string 
+        Reads the next int number of characters from the files and returns them as a string. 
+        The file is unchanged and the characters are "consumed" from the instream 
+
+val infile = TextIO.openIn("jason.txt");
+TextIO.inputN(infile, 3);
