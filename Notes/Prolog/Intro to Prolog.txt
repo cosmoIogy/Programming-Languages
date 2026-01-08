@@ -1,0 +1,9 @@
+Intro to Prolog 
+
+The commend toe xit the interperter is halt 
+
+The first thing we will do is write a small artifical intelligence program so that we can ask it who is 
+Ben Solo's grandfather
+
+The command to read a prolog file into the SWI interpreter is 
+    consult ('<filename>').

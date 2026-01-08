@@ -578,3 +578,28 @@ NEW FUNCTIONS in TextIO
 
 val infile = TextIO.openIn("jason.txt");
 TextIO.inputN(infile, 3);
+
+FILE WRITING 
+
+We still use the TextIO structure
+
+NEW TYPE: outstream 
+
+NEW LIBRARY FUNCTIONS 
+
+    TextIO.openOUT : string -> outstream 
+        opens a file for writing (inputs a string for the filename and returns a reference
+        to the file that will be written to)
+
+    TextIO.openAppend : string -> outstream 
+        Opens a file to append (add on) to (inputs a string for the filename and returns a reference
+        to the file that will be appended to)
+
+    TextIO.closeOut : outstream -> unit 
+        Closes a file that was used for writing 
+
+    TextIO.output : outstream * string -> unit 
+        Writes the string to the output file  
+
+    TextIO.stdIN : instream 
+    TextIO.stdOut : outstream
