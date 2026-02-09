@@ -20,17 +20,17 @@ fun stripSpaces s =
 
 fun toInt s =
     case Int.fromString (stripSpaces s) of (* removes spaces and converts to int option *)
-        SOME n => n
+        SOME n => n (* if conversion is successful, return the integer *)
       | NONE => 0   
 
 (* Parseline Function *)
-fun parseLine line =
+fun parseLine line = (* parses a line of text into a list of integers *)
     let
-        val tokens = String.tokens (fn c => c = #",") line (* split line into tokens by comma *)
+        val tokens = String.tokens (fn c => c = #",") line (* split line into tokens based on commas *)
 
         fun convert [] = [] (* helper function to convert list of strings to list of integers *)
           | convert (x :: xs) =
-                toInt x :: convert xs
+                toInt x :: convert xs (* convert head to int and recursively convert tail *)
     in
         if tokens = [""] then [] (* if the line is empty, return an empty list *)
         else convert tokens (* convert tokens to integers *)
@@ -52,6 +52,7 @@ fun insert (x, Empty) = Node (x, Empty, Empty) (* insert into empty tree *)
 (* Builds a BST from a list of integers *)
 fun buildTree lst = 
     foldl (fn (x, t) => insert (x, t)) Empty lst (* builds a BST from a list of integers *)
+    (* starts with empty tree and inserts each element from the list using foldl *)
 
 (* Loads multiple trees from a file *)
 fun loadTrees filename = (* loads multiple trees from a file *)
