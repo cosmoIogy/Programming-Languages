@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"
+        <meta name="description" content="">
+        <title>
+            Javascript Day 1
+        </title>
+    </head>
+    <body>
+        <h1>Javascript Day 1</h1>
+
+        <p>
+            <a href="https://canvas.latech.edu">Canvas Webpage</a>
+        </p>
+
+        <!-- Now we will learn some Javascript code to perform actions. HTML code mainly for markup (apperance) -->
+         <!-- script>
+            console.log("Hello World!!")
+         </script-->
+
+         <!-- It is somewhat outdated to write javascript code directtly into an html file. It is custom to put all javascript code
+          in a seperate file and link it to an html file. Comment the previous code and lets do it. -->
+        
+          <p><h2>Button Counter:</h2></p>
+          <h2 id="counter">0</h2>
+          <input type="button"
+          value="INCREMENT" onclick="incre()">
+
+          <input type="button"
+          value="RESET" onclick="reset()">
+
+          <input type="button"
+          value="SAVE" onclick="save()">
+        
+          <script src="./feb23.js"></script>
+          <!--
+          Put script tags last in an html doc -->
+
+          <!--
+          In Class Exercises:
+          
+          1. Add a function and button that will reset the counter back to 0 consistently so that the other button still works 
+          properly
+
+          2. Add a third button and function that will save the current count to another tag by concatenating strings it, seperated by dashes.
+          And works consistently with the other two buttons.
+          -->
+
+    </body>
+</html>
